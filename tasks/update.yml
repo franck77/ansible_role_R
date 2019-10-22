@@ -1,0 +1,36 @@
+---
+
+- name: "Add new library R"
+  copy:
+    src: "files/library/{{ item }}"
+    dest: "/usr/lib64/microsoft-r/3.4/lib64/R/library/"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  with_items: "{{ packageR_add }}"
+  when: state in ["add_library"]
+
+- name: "Delete library R"
+  file:
+    state: "absent"
+    path: "/usr/lib64/microsoft-r/3.4/lib64/R/library/{{ item }}"
+  with_items: "{{ packageR_del }}"
+  when: state in ["del_library"]
+
+- name: "Update library R (1/2)"
+  file:
+    state: "absent"
+    path: "/usr/lib64/microsoft-r/3.4/lib64/R/library/{{ item }}"
+  with_items: "{{ packageR_update }}"
+  when: state in ["update_library"]
+
+- name: "Update library R (2/2)"
+  copy:
+    src: "files/library/{{ item }}"
+    dest: "/usr/lib64/microsoft-r/3.4/lib64/R/library/"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  with_items: "{{ packageR_update }}"
+  when: state in ["update_library"]
+

@@ -1,0 +1,26 @@
+---
+
+#- name: "Config NFS server"
+#  include: "nfs-server.yml"
+#  when: state in ["NFS"]
+
+#- name: "Config NFS client"
+#  include: "nfs-client.yml"
+#  when: state in ["NFS"]
+
+- name: "Install R engine"
+  include: "install.yml"
+  when: state in ["install_r", "whole_install_r"]
+
+- name: "Config R engine"
+  include: "config.yml"
+  when: state in ["config_r", "whole_install_r"]
+
+- name: "Update package"
+  include: "package.yml"
+  when: state in ["add_library", "update_library", "del_library"]
+
+- name: "Remove R"
+  include: "remove.yml"
+  when: state in ["remove_r"]
+

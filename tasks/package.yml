@@ -1,0 +1,82 @@
+---
+
+### Check input variable
+
+- name: "Check requested variables to delete package"
+  assert: { that: "{{ item }} is defined" }
+  with_items:
+     - packageR_del
+     - r_path_library
+  when: state in ["del_library"]
+
+- name: "Check requested variables to update packages"
+  assert: { that: "{{ item }} is defined" }
+  with_items:
+     - packageR_update
+  when: state in ["update_library"]
+
+- name: "Check requested variables to add new library"
+  assert: { that: "{{ item }} is defined" }
+  with_items:
+     - r_path_library
+     - role_r_local_path_library
+     - list_package_entite
+  when: state in ["add_library","update_library"]
+
+### Remove package
+
+- name: "Delete library R"
+  become: "true"
+  file:
+    state: "absent"
+    path: "{{ r_path_library }}/{{ item }}"
+  with_items: "{{ packageR_del }}"
+  when: state in ["del_library"]
+
+### Update package
+
+- name: "Delete old library R before the update"
+  become: "true"
+  file:
+    state: "absent"
+    path: "{{ r_path_library }}/{{ item }}"
+  with_items: "{{ packageR_update }}"
+  when: state in ["update_library"]
+
+### Add new package
+
+- name: "Check right on the directory {{ r_path_library }}"
+  become: "true"
+  file:
+    path: "{{ r_path_library }}"
+    owner: "root"
+    group: "grstudio_admin"
+    mode: "0775"
+    state: "directory"
+    recurse: "yes"
+  when: state in ["add_library","update_library"]
+
+- name: "Synchronization R library"
+  synchronize:
+    src: "{{ role_r_local_path_library }}/{{ item.name }}_{{ item.version }}/"
+    dest: "{{ r_path_library }}/{{ item.name }}"
+    perms: "no"
+    owner: "yes"
+    group: "yes"
+    times: "no"
+    mode: "push"
+    checksum: "yes"
+  with_items: "{{ list_package_entite }}"
+  when: state in ["add_library","update_library"]
+
+- name: "Check right on the directory {{ r_path_library }}"
+  become: "true"
+  file:
+    path: "{{ r_path_library }}"
+    owner: "root"
+    group: "grstudio_admin"
+    mode: "0775"
+    state: "directory"
+    recurse: "yes"
+  when: state in ["add_library","update_library"]
+

@@ -1,0 +1,55 @@
+---
+
+- name: "Check requested varaible to install microsoft R"
+  assert: { that: "{{ item }} is defined" }
+  with_items:
+     - rengine_install_folder
+     - packageYum
+
+- name: "Ensure R install folder is created"
+  become: "true"
+  file:
+        path: "{{ rengine_install_folder }}"
+        state: "directory"
+        mode: "0755"
+
+- name: "Copy rengine install"
+  become: "true"
+  copy:
+        src: "files/rengine/"
+        dest: "{{rengine_install_folder}}/"
+
+- name: "Install R engine"
+  become: "true"
+  command: "sh {{ rengine_install_folder }}/install.sh -u --accept-mkl-eula"
+
+#- name: "Copy epel yum repo"
+#  become: "true"
+#  copy:
+#    src: "files/epel-yum.repo"
+#    dest: "/etc/yum.repos.d/epel-yum.repo"
+#
+#- name: "Copy minor-rhel repo"
+#  become: "true"
+#  copy:
+#    src: "files/minor-rhel-yum.repo"
+#    dest: "/etc/yum.repos.d/minor-rhel-yum.repo"
+#
+#- name: "Copy optionnal RedHat repo"
+#  become: "true"
+#  copy:
+#    src: "files/rhoptional-sg.repo"
+#    dest: "/etc/yum.repos.d/rhoptional-sg.repo"
+#
+#- name: "yum-clean-metadata"
+#  become: "true"
+#  command: "yum clean metadata"
+
+- name: "Install rpm R package system"
+  become: "true"
+  yum:
+    name: "{{ item }}"
+    state: "installed"
+  with_items:
+  - "{{ packageYum }}"
+

@@ -1,0 +1,8 @@
+[7.2-rhel-yum]
+name=Red Hat Enterprise Linux 7.2 - $basearch
+baseurl=http://pxplux10.dns20.socgen:8162/media/minor/7.2-$basearch
+        http://pxplux20.dns20.socgen:8162/media/minor/7.2-$basearch
+        http://pxplux30.dns20.socgen:8162/media/minor/7.2-$basearch
+enabled=1
+gpgcheck=0
+keepcache=0

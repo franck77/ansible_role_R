@@ -1,0 +1,39 @@
+---
+- name: Enable rpcbind
+  systemd:
+    name: rpcbind
+    enabled: yes
+    masked: no
+
+- name: Restart rpcbind
+  systemd:
+    name: rpcbind
+    state: restarted
+
+- name: Enable nfs-server
+  systemd:
+    name: nfs-server
+    enabled: yes
+    masked: no
+
+- name: Restart nfs-server
+  systemd:
+    name: nfs-server
+    state: restarted
+
+- name: Enable nginx
+  systemd:
+    name: nginx
+    enabled: yes
+    masked: no
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+
+- name: "Restart sshd"
+  systemd: 
+    name: "sshd.service"
+    state: "restarted"
+

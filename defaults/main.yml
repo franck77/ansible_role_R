@@ -1,0 +1,12 @@
+---
+
+### PATH
+produits_path: "/produits"
+applis_path: "/applis"
+ldap_conf_file: "/etc/openldap/ldap.conf"
+keytab_directory: "/etc/security/keytabs_user"
+
+### JAVA
+java_path_server: "/usr/java/jdk1.8.0_121/jre/lib/amd64/server"
+r_java_home: "/usr/java/jdk1.8.0_121/jre/"
+
