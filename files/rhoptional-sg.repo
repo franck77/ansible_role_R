@@ -1,9 +1,0 @@
-[rhoptional-yum-sg]
-name=Red Hat Enterprise Linux Optional $releasever - $basearch - Societe Generale
-baseurl=http://pxplux10.dns20.socgen:8162/media/update/redhat_channels/$releasever-$basearch-optional/Packages
-        http://pxplux20.dns20.socgen:8162/media/update/redhat_channels/$releasever-$basearch-optional/Packages
-        http://pxplux30.dns20.socgen:8162/media/update/redhat_channels/$releasever-$basearch-optional/Packages
-enabled=1
-gpgcheck=0
-keepcache=0
-
