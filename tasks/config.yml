@@ -11,44 +11,12 @@
      - produits_path
      - r_vars_LD_LIBRARY_PATH
      - r_java_home
-     - role_r_path_sparkling_water
-     - role_r_path_teradata
 
 - name: "Configure Renviron"
   become: "true"
   template:
         src: "templates/r_environ.j2"
         dest: "{{ renviron_path }}"
-
-- name: "Add teradata JAR"
-  become: "true"
-  unarchive:
-        src: "files/package/teradata.tar.gz"
-        dest: "{{ produits_path }}/"
-
-- name: "Check permissions for teradata JAR"
-  become: "true"
-  file:
-    path: "{{ role_r_path_teradata }}"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-    recurse: "yes"
-
-- name: "Add sparklingwater JAR"
-  become: "true"
-  unarchive:
-        src: "files/package/sparkling-water.tar.gz"
-        dest: "{{ produits_path }}/"
-
-- name: "Check permissions for sparkingwater JAR"
-  become: "true"
-  file:
-    path: "{{ role_r_path_sparkling_water }}"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-    recurse: "yes"
 
 - name: "Update java conf"
   shell: "export LD_LIBRARY_PATH={{ r_vars_LD_LIBRARY_PATH }}"
