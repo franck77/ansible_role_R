@@ -5,8 +5,7 @@ role_r_package_microsoft:
   - microsoft-r-open-foreachiterators-3.4
   - microsoft-r-open-mkl-3.4
   - microsoft-r-open-mro-3.4
-role_r_path_sparkling_water: "{{ produits_path }}/sparkling-water"
-role_r_path_teradata: "{{ produits_path }}/teradata"
+
 
 ### Rengine
 rengine_install_folder: "{{ produits_path }}/rengine"
@@ -15,7 +14,7 @@ renviron_path: "{{ r_path }}/etc/Renviron"
 r_path_lib: "{{ r_path }}/lib"
 r_path_library: "{{ r_path }}/library"
 r_vars_LD_LIBRARY_PATH: "{{ r_path_library }}:{{ r_path_lib }}:{{ java_path_server }}:@JAVA_LD@"
-role_r_local_path_library: "/applis/ansible/roles/I2T_SOCLE_R/files/library"
+role_r_local_path_library: "/applis/ansible/roles/ansible_role_R/files/library"
 
 ### library tmp
 library_tmp_name: "library_new"
