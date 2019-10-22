@@ -11,18 +11,11 @@ Requirements
 Get library R and Microsoft-R Binarie and create symbolic link for the library R and the microsoft-r binarie :
 
 `
-cd I2T_SOCLE_R/files ;
+cd ansible_role_R/files ;
 ln -s <library_r_directory> library ;
 ln -s <microsoft_r_engine> rengine
 `
 
-Get specific packages as "sparkling-water" or "teradata", create a directory "packages" in files and put the tar.gz in  :
-
-`
-mkdir files/packages ;
-cp sparkling-water.tar.gz files/packages/ ;
-cp teradata.tar.gz files/packages/ ;
-`
 
 Role Variables
 --------------
