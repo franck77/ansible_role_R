@@ -1,6 +1,3 @@
-
-### /usr/lib64/microsoft-r/3.4/lib64/R/etc/Renviron
-
 ### etc/Renviron.  Generated from Renviron.in by configure.
 ###
 ### ${R_HOME}/etc/Renviron
@@ -43,39 +40,31 @@ TAR=${TAR-'tar'}
 ## System and compiler types.
 R_SYSTEM_ABI='linux,gcc,gxx,gfortran,?'
 
-R_LIBS_USER=${R_LIBS_USER-'~/R/x86_64-pc-linux-gnu-library/3.3'}
-#R_LIBS_USER=${R_LIBS_USER-'~/Library/R/3.3/library'}
-
-
-# for hadoop client path
-HADOOP_CMD='/usr/hdp/current/hadoop-client/bin/hadoop'
-
-# location of the jar that some R packages will need
-HADOOP_STREAMING='/usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar'
+R_LIBS_USER='{{ role_r_library_user }}'
 
 # location of the Java Home
-JAVA_HOME='{{ r_java_home }}'
+JAVA_HOME='{{ role_r_java_home }}'
+
+{% if role_r_hadoop_setup == "true" %}
+# for hadoop client path
+HADOOP_CMD='{{ role_r_hadoop_cmd }}'
+
+# location of the jar that some R packages will need
+HADOOP_STREAMING='{{ role_r_hadoop_streaming_jar }}'
 
 #  R need hHadoop configuration
-HADOOP_CONF_DIR="/etc/hadoop/conf"
+HADOOP_CONF_DIR='{{ role_r_hadoop_conf_directory }}'
 
 # setting Hadoop Home
-HADOOP_HOME="/usr/hdp/current/hadoop-client"
+HADOOP_HOME='{{ role_r_hadoop_client_directory }}'
 
 # # Setting the hadooop bin
-HADOOP_BIN="/usr/hdp/current/hadoop-client/bin"
- 
+HADOOP_BIN="{{ role_r_hadoop_client_bin_directory }}"
+
 # Hadoop library
-HADOOP_COMMON_LIB_NATIVE_DIR='/usr/hdp/current/hadoop-client/lib/native'
-
-HADOOP_OPTS='-Djava.library.path=/usr/hdp/current/hadoop-client/lib/native'
-
+HADOOP_COMMON_LIB_NATIVE_DIR='{{ role_r_hadoop_client_lib_native_directory }}'
+{% endif %}
+{% if role_r_spark_client_directory is defined %}
 # setting spark Home
 SPARK_HOME='/usr/hdp/current/spark-client'
-
-# the line need to be precise even if we already declare the Java home
-LD_LIBRARY_PATH='{{ r_vars_LD_LIBRARY_PATH }}'
-
-### Local Variables: ***
-### mode: sh ***
-
+{% endif %}

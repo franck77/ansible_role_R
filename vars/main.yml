@@ -1,5 +1,10 @@
 ---
 
+### Install Microsoft R binary 
+role_r_binary:
+  url: "{{ role_r_source_mode }}://{{ role_r_binary_url }}/{{ role_r_binary_archive_name }}"
+  checksum: "{{ role_r_checksum_algorithm }}:{{ role_r_checksum_fingerprint }}"
+
 role_r_binary_directory_name: "microsoft-r-open"
 
 ### PACKAGE R
@@ -9,11 +14,10 @@ role_r_package_microsoft:
 
 ### Rengine
 role_r_path: "{{ role_r_directory }}/ropen/{{ role_r_release }}/lib64/R"
-renviron_path: "{{ role_r_path }}/etc/Renviron"
+role_r_renviron_file: "Renviron"
+role_r_renviron_path: "{{ role_r_path }}/etc/{{ role_r_renviron_file }}"
 role_r_path_lib: "{{ role_r_path }}/lib"
 role_r_path_library: "{{ role_r_path }}/library"
-role_r_vars_LD_LIBRARY_PATH: "{{ role_r_path_library }}:{{ role_r_path_lib }}:{{ java_path_server }}:@JAVA_LD@"
-role_role_r_local_path_library: "/applis/ansible/roles/ansible_role_R/files/library"
 
 ### library tmp
 library_tmp_name: "library_new"

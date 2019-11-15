@@ -3,22 +3,11 @@
 - name: "Check requested varaible to config microsoft R"
   assert: { that: "{{ item }} is defined" }
   with_items:
-     - r_path
-     - renviron_path
-     - r_path_lib
-     - r_path_library
-     - packageYum
-     - produits_path
-     - r_vars_LD_LIBRARY_PATH
-     - r_java_home
+     - role_r_java_home
 
 - name: "Configure Renviron"
   become: "true"
   template:
-        src: "templates/r_environ.j2"
-        dest: "{{ renviron_path }}"
-
-- name: "Update java conf"
-  shell: "export LD_LIBRARY_PATH={{ r_vars_LD_LIBRARY_PATH }}"
-  shell: "sudo R CMD javareconf"
+    src: "templates/r_environ.j2"
+    dest: "{{ renviron_path }}"
 

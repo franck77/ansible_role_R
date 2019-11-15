@@ -19,7 +19,7 @@
   get_url:
     url: "{{ role_r_binary.url }}"
     dest: "{{ role_r_tmp_directory_installer }}/"
-    checksum: "{{ role_r_binary.checksum_algorithm }}:{{ role_r_binary.checksum_fingerprint }}"
+    checksum: "{{ role_r_binary.checksum }}"
 
 - name: "Unarchive R binary"
   become: "true"
@@ -32,13 +32,13 @@
   become: "true"
   command: "sh {{ role_r_tmp_directory_installer }}/{{ role_r_binary_directory_name }}/install.sh -u --accept-mkl-eula"
 
-#- name: "Install rpm R package system"
-#  become: "true"
-#  yum:
-#    name: "{{ item }}"
-#    state: "installed"
-#  with_items:
-#  - "{{ packageYum }}"
+- name: "Install rpm R package system"
+  become: "true"
+  yum:
+    name: "{{ item }}"
+    state: "installed"
+  with_items:
+  - "{{ packageYum }}"
 
 - name: "Clean tmp directory"
   become: "true"

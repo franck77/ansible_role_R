@@ -1,21 +1,26 @@
 ---
 
-role_r_source_mode: "http:"
-role_r_release: "3.5.3"
+### Installation
+role_r_source_mode: "http" ### Get binary with http request (internet connexion required)
+role_r_release: "3.5.3" ### Microsoft R release
 role_r_checksum_fingerprint: "5E36748A79B930DA6BEFE8827050E9CDD36722D6A8D92E21E3B752BB6AFE26BD"
 role_r_checksum_algorithm: "sha256"
 role_r_binary_archive_name: "{{ role_r_binary_directory_name }}-{{ role_r_release }}.tar.gz"
+role_r_binary_url: "mran.blob.core.windows.net/install/mro/{{ role_r_release }}/rhel"
+role_r_tmp_directory_installer: "/tmp/r" ### Tmp direcotry to put Microsoft R binary (it'll be remove after the installation)
 
-role_r_binary:
-  url: "{{ role_r_source_mode }}//mran.blob.core.windows.net/install/mro/{{ role_r_release }}/rhel/{{ role_r_binary_archive_name }}"
-  checksum_algorithm: "{{ role_r_checksum_algorithm }}"
-  checksum_fingerprint: "{{ role_r_checksum_fingerprint }}"
+### Configuration
+role_r_directory: "/opt/microsoft" ### Default directory where R will be installed
+role_r_library_user: "~/.RLibrary/library" ### Directory to install library for only one user
+role_r_java_home: "/usr/java/jdk1.8.0_121/jre/" ### Path to JAVA home
 
-role_r_tmp_directory_installer: "/tmp/r"
-
-role_r_directory: "/opt/microsoft"
-
-### JAVA
-java_path_server: "/usr/java/jdk1.8.0_121/jre/lib/amd64/server"
-r_java_home: "/usr/java/jdk1.8.0_121/jre/"
+### Hadoop default setting
+role_r_hadoop_setup: "false"
+role_r_hadoop_current_path: "/usr/hdp/current"
+role_r_hadoop_client_directory: "{{ role_r_hadoop_current_path }}/hadoop-client"
+role_r_hadoop_client_bin_directory: "{{ role_r_hadoop_client_directory }}/bin"
+role_r_hadoop_cmd: "{{ role_r_hadoop_client_bin_directory }}/hadoop"
+role_r_hadoop_streaming_jar: "{{ role_r_hadoop_current_path }}/hadoop-mapreduce-client/hadoop-streaming.jar"
+role_r_hadoop_conf_directory: "/etc/hadoop/conf"
+role_r_hadoop_client_lib_native_directory: "{{ role_r_hadoop_client_directory }}/lib/native"
 
