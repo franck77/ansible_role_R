@@ -3,33 +3,17 @@
 - name: "Check requested varaible to remove microsoft R"
   assert: { that: "{{ item }} is defined" }
   with_items:
-     - role_r_package_microsoft
-     - role_r_path_sparkling_water
-     - role_r_path_teradata
-     - rengine_install_folder
+   - role_r_package_microsoft
 
-- name: "Remove R product"
+- name: "Remove R from YUM"
   become: "true"
   yum:
     name: "{{ item }}"
     state: "absent"
   with_items: "{{ role_r_package_microsoft }}"
 
-- name: "Remove sparkling-water librairie"
+- name: "Delete R directory"
   become: "true"
   file:
-    path: "{{ role_r_path_sparkling_water }}"
+    path: "{{ role_r_directory }}"
     state: "absent"
-
-- name: "Remove teradata librairie"
-  become: "true"
-  file:
-    path: "{{ role_r_path_teradata }}"
-    state: "absent"
-
-- name: "Remove R directory"
-  become: "true"
-  file:
-    path: "{{ rengine_install_folder }}"
-    state: "absent"
-

@@ -1,26 +1,18 @@
 ---
 
-#- name: "Config NFS server"
-#  include: "nfs-server.yml"
-#  when: state in ["NFS"]
-
-#- name: "Config NFS client"
-#  include: "nfs-client.yml"
-#  when: state in ["NFS"]
-
 - name: "Install R engine"
   include: "install.yml"
-  when: state in ["install_r", "whole_install_r"]
+  when: state in ["role_r_install", "role_r_whole_install"]
 
 - name: "Config R engine"
   include: "config.yml"
-  when: state in ["config_r", "whole_install_r"]
+  when: state in ["role_r_config", "role_r_whole_install"]
 
 - name: "Update package"
   include: "package.yml"
-  when: state in ["add_library", "update_library", "del_library"]
+  when: state in ["role_r_add_library", "role_r_update_library", "role_r_del_library"]
 
 - name: "Remove R"
   include: "remove.yml"
-  when: state in ["remove_r"]
+  when: state in ["role_r_remove"]
 

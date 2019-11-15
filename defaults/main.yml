@@ -1,10 +1,19 @@
 ---
 
-### PATH
-produits_path: "/produits"
-applis_path: "/applis"
-ldap_conf_file: "/etc/openldap/ldap.conf"
-keytab_directory: "/etc/security/keytabs_user"
+role_r_source_mode: "http:"
+role_r_release: "3.5.3"
+role_r_checksum_fingerprint: "5E36748A79B930DA6BEFE8827050E9CDD36722D6A8D92E21E3B752BB6AFE26BD"
+role_r_checksum_algorithm: "sha256"
+role_r_binary_archive_name: "{{ role_r_binary_directory_name }}-{{ role_r_release }}.tar.gz"
+
+role_r_binary:
+  url: "{{ role_r_source_mode }}//mran.blob.core.windows.net/install/mro/{{ role_r_release }}/rhel/{{ role_r_binary_archive_name }}"
+  checksum_algorithm: "{{ role_r_checksum_algorithm }}"
+  checksum_fingerprint: "{{ role_r_checksum_fingerprint }}"
+
+role_r_tmp_directory_installer: "/tmp/r"
+
+role_r_directory: "/opt/microsoft"
 
 ### JAVA
 java_path_server: "/usr/java/jdk1.8.0_121/jre/lib/amd64/server"
